@@ -3,6 +3,9 @@ import pickle
 import streamlit as st
 from streamlit_option_menu import option_menu
 
+
+
+# load models
 cancer_model=pickle.load(open('cancer_model.pkl','rb'))
 diabetes_model=joblib.load(open('diabetes_model.pkl','rb'))
 heart_model=joblib.load(open('heart_model.pkl','rb'))
@@ -12,6 +15,7 @@ parkinsons_model=joblib.load(open('parkinsons_model.pkl','rb'))
 
 # sidebar
 
+
 with st.sidebar:
     selected=option_menu('Multiple Disease Detection System',['Welcome',
         'Cancer','Diabetes','Heart','Kidney','Liver','Parkinsons'],
@@ -20,10 +24,11 @@ with st.sidebar:
 
 if selected == 'Welcome':
     st.title('Welcome to Automatic Disease Detection Using Machine Learning')
-    st.image('disease-diagnosis-using-machine-learning.png')
+    st.image('images.jpg',width=700)
 
 if selected=='Cancer':
     st.title('Breast Cancer Test')
+    st.image('cancer.jpg',width=300)
     concave=st.number_input('Concave',value=0.012,step=0.025)
     area=st.number_input('Area',value=500.0,step=0.1)
     radius=st.number_input('Radius',value=10.0,step=0.025)
@@ -41,6 +46,7 @@ if selected=='Cancer':
 
 if selected=='Diabetes':
     st.title('Diabetes Test')
+    st.image('diabetes.jpg',width=300)
     pregnancies=st.number_input('Number of pregnencies',min_value=0,max_value=10,step=1,value=1)
     glucose=st.number_input('Glucose Level',min_value=50,step=1,value=100)
     bp=st.number_input('Current blood Pressure',min_value=50,max_value=130,step=1,value=70)
@@ -59,6 +65,7 @@ if selected=='Diabetes':
 
 if selected=='Heart':
     st.title('Heart Disease Test')
+    st.image('heart.jpg',width=300)
     chest_pain=st.selectbox('Chest Pain type',['Typical Angina','Atypical Angina', 'Non-Anginal Pain','Asymptomatic'])
     cp=int()
     if chest_pain=='Typical Angina':
@@ -87,6 +94,7 @@ if selected=='Heart':
 
 if selected=='Kidney':
     st.title('Kidney Test')
+    st.image('kidney.jpg',width=300)
     bp=st.number_input('Blood Pressure',value=50,step=1)
     gravity=st.number_input('Specific Gravity',value=1.000,step=0.025)
     albumin=st.number_input('Albumin',value=1.0,step=0.5)
@@ -103,10 +111,12 @@ if selected=='Kidney':
         else:
             result = 'Your kidney is healthy.'
     st.success(result)
+    st.header('')
 
 
 if selected=='Liver':
     st.title('Liver Test')
+    st.image('liver.jpg',width=300)
     total_bilirubin=st.number_input('Total Bilirubin',value=0.4,step=0.1)
     direct_bilirubin=st.number_input('Direct Bilirubin',value=0.1,step=0.1)
     alkeline=st.number_input('Alkaline Phosphotase',value=70,step=1)
@@ -124,10 +134,17 @@ if selected=='Liver':
         else:
             result = 'Your liver is healthy.'
     st.success(result)
+    st.header('symptoms of liver disease')
+    st.markdown('Skin and eyes that appear yellowish (jaundice)')
+    st.markdown('Abdominal pain and swelling.')
+    st.markdown('Swelling in the legs and ankles.')
+    st.markdown('Itchy skin.')
+
 
 
 if selected=='Parkinsons':
     st.title("Parkinson's Disease Test")
+    st.image('parkinsons.jpg',width=300)
 
     col1, col2, col3, col4, col5 = st.columns(5)
 
@@ -212,5 +229,11 @@ if selected=='Parkinsons':
             result = "You do not have Parkinson's disease"
 
     st.success(result)
-
-
+    
+    st.header('What causes Parkinson’s disease?')
+    st.markdown('The most prominent signs and symptoms of Parkinson’s disease occur when nerve cells in the basal ganglia, an area of the brain that controls movement, become impaired and/or die. Normally, these nerve cells, or neurons, produce an important brain chemical known as dopamine. When the neurons die or become impaired, they produce less dopamine, which causes the movement problems associated with the disease. Scientists still do not know what causes the neurons to die.')
+    st.header('Symptoms of Parkinson’s disease')
+    st.markdown('Tremor in hands, arms, legs, jaw, or head')
+    st.markdown('Muscle stiffness, where muscle remains contracted for a long time')
+    st.markdown('Slowness of movement')
+    st.markdown('Impaired balance and coordination, sometimes leading to falls')
